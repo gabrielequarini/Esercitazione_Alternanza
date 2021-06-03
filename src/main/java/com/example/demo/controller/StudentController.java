@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import java.security.Provider.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -14,47 +14,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Student;
-import com.example.demo.repository.StudentRepository;
-
-import service.StudentService;
+import com.example.demo.service.StudentService;
 
 @RestController
 public class StudentController {
 	@Autowired
-	private StudentService studentRepository;
+	private StudentService studentService;
 
 	@GetMapping("/students/{id}")
 	public Optional<Student> getStudent(@PathVariable int id) {
-		return StudentService.findById(id);
+		return studentService.findById(id);
 	}
 
 	@GetMapping("/students/all")
 	public List<Student> getAllStudents() {
-		return StudentService.findAll();
+		return studentService.findAll();
 	}
 
 	@PostMapping("/students/save")
 	public Student insertStudent(@RequestBody Student student) {
-		return StudentService.save(student);
+		return studentService.save(student);
 	}
 
 	@PutMapping("/students/{id}/update")
 	public Student updateStudent(@PathVariable int id, @RequestBody Student student) {
-		Optional<Student> stud = studentRepository.findById(id);
+		Optional<Student> stud = studentService.findById(id);
 		if (stud.isEmpty()) {
 			throw new RuntimeException();
 		}
-		return StudentService.save(student);
+		return studentService.save(student);
 	}
 
 	@DeleteMapping("/student/(id)/delete")
 	public void deleteStudent(@PathVariable int id) {
-		StudentService.deleteById(id);
+		studentService.deleteById(id);
 	}
 
 	@GetMapping("/students/mat/{mat}")
-	public List<Student> getStudentByMat(int mat) {
-		return StudentService.findStudentsByMat(mat);
+	public List<Student> getStudentByMat(@PathVariable int mat) {
+		return studentService.findStudentsByMat(mat);
 
 	}
 

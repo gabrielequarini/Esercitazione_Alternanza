@@ -1,4 +1,4 @@
-package service;
+package com.example.demo.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +11,11 @@ import com.example.demo.model.Student;
 import com.example.demo.repository.StudentRepository;
 
 @Service
-
 public class StudentService {
 	@Autowired
-	static StudentRepository studentRepository;
+	private StudentRepository studentRepository;
 
-	public static Optional<Student> findById(int id) {
+	public Optional<Student> findById(int id) {
 		return studentRepository.findById(id);
 
 	}
@@ -30,7 +29,7 @@ public class StudentService {
 		return studentRepository.save(student);
 	}
 
-	public static void deleteById(int id) {
+	public void deleteById(int id) {
 		studentRepository.deleteById(id);
 	}
 
